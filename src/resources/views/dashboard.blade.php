@@ -31,19 +31,47 @@
 
         .card-summary {
             border: none;
-            border-left: 5px solid #a50034;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            border-radius: 10px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .card-summary h6 {
-            color: #666;
+        .card-summary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #a50034;
+        }
+
+        .card-summary .card-body {
+            padding: 24px;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #777;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
         }
 
-        .card-summary h3 {
-            color: #222;
-            font-weight: bold;
+        .summary-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f1f1f;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .summary-caption {
+            font-size: 0.88rem;
+            color: #8a8a8a;
             margin: 0;
         }
 
@@ -184,28 +212,31 @@
 
         <div class="row mb-4">
             <div class="col-md-4 mb-3">
-                <div class="card card-summary">
+                <div class="card card-summary h-100">
                     <div class="card-body">
-                        <h6>Total Produzido</h6>
-                        <h3>{{ number_format($summaryProduced, 0, ',', '.') }}</h3>
+                        <div class="summary-label">Total Produzido</div>
+                        <div class="summary-value">{{ number_format($summaryProduced, 0, ',', '.') }}</div>
+                        <p class="summary-caption">Volume total produzido no período analisado.</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4 mb-3">
-                <div class="card card-summary">
+                <div class="card card-summary h-100">
                     <div class="card-body">
-                        <h6>Total de Defeitos</h6>
-                        <h3>{{ number_format($summaryDefects, 0, ',', '.') }}</h3>
+                        <div class="summary-label">Total de Defeitos</div>
+                        <div class="summary-value">{{ number_format($summaryDefects, 0, ',', '.') }}</div>
+                        <p class="summary-caption">Ocorrências de defeitos registradas no período.</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4 mb-3">
-                <div class="card card-summary">
+                <div class="card card-summary h-100">
                     <div class="card-body">
-                        <h6>Eficiência Geral</h6>
-                        <h3>{{ number_format($summaryEfficiency, 2, ',', '.') }}%</h3>
+                        <div class="summary-label">Eficiência Geral</div>
+                        <div class="summary-value">{{ number_format($summaryEfficiency, 2, ',', '.') }}%</div>
+                        <p class="summary-caption">Índice consolidado de produção sem defeitos.</p>
                     </div>
                 </div>
             </div>
