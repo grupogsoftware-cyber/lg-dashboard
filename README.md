@@ -184,6 +184,6 @@ lg-dashboard/
 
 ---
 
-## Autor Genilson de Oliveira Silva - Engenheiro de Software. 12.98303-0650 - ge_engenharia@hotmail.com.
+## Autor: Genilson de Oliveira Silva - Engenheiro de Software - 12.98303-0650 - ge_engenharia@hotmail.com.
 
 Desenvolvido como desafio técnico para processo seletivo.
