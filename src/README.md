@@ -1,61 +1,189 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# LG Electronics - Dashboard de Eficiência de Produção
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Aplicação desenvolvida em **Laravel 7** para apresentação da eficiência de produção da **Planta A** da LG Electronics, considerando as linhas de produto:
 
-## About Laravel
+- Geladeira
+- Máquina de Lavar
+- TV
+- Ar-Condicionado
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O dashboard apresenta uma visão consolidada dos dados simulados para o mês de **janeiro de 2026**, permitindo análise geral e filtrada por linha de produção.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Objetivo
 
-## Learning Laravel
+Disponibilizar um dashboard simples, claro e objetivo para acompanhamento dos seguintes indicadores por linha de produção:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Linha do produto
+- Quantidade produzida
+- Quantidade de defeitos
+- Eficiência (%)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Stack utilizada
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- **Backend:** Laravel 7
+- **Linguagem:** PHP 7.4
+- **Banco de Dados:** MySQL 8
+- **Frontend:** Blade + Bootstrap + JavaScript
+- **Gráfico:** Chart.js
+- **Ambiente local:** Docker
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+## Funcionalidades
 
-## Contributing
+- Dashboard com visão consolidada de todas as linhas
+- Filtro por linha de produção
+- Cards com indicadores gerais
+- Tabela com resumo por linha
+- Gráfico de eficiência por linha
+- Dados simulados via seeder
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Fórmula de eficiência adotada
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Para representar a eficiência de produção de forma coerente, foi adotada a seguinte fórmula:
 
-## Security Vulnerabilities
+```text
+((quantidade_produzida - quantidade_defeitos) / quantidade_produzida) * 100
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Essa abordagem representa a proporção de itens produzidos sem defeito dentro do período analisado.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Estrutura da tabela
+
+Tabela utilizada: `production_records`
+
+### Campos
+
+- `id`
+- `product_line` → nome da linha de produção
+- `production_date` → data da produção
+- `quantity_produced` → quantidade produzida no dia
+- `quantity_defects` → quantidade de defeitos no dia
+- `created_at`
+- `updated_at`
+
+---
+
+## Exemplo de dados simulados
+
+Os dados foram gerados por seeder para os 31 dias do mês de janeiro de 2026, contemplando as quatro linhas da Planta A.
+
+```sql
+INSERT INTO production_records (product_line, production_date, quantity_produced, quantity_defects, created_at, updated_at)
+VALUES
+('Geladeira', '2026-01-01', 1200, 25, NOW(), NOW()),
+('Máquina de Lavar', '2026-01-01', 980, 18, NOW(), NOW()),
+('TV', '2026-01-01', 1450, 42, NOW(), NOW()),
+('Ar-Condicionado', '2026-01-01', 870, 15, NOW(), NOW());
+```
+
+---
+
+## Como executar o projeto localmente
+
+### 1. Clonar o repositório
+
+```bash
+git clone <https://github.com/grupogsoftware-cyber/lg-dashboard.git>
+cd lg-dashboard
+```
+
+### 2. Subir os containers
+
+```bash
+docker compose up -d --build
+```
+
+### 3. Instalar dependências do Laravel
+
+Caso necessário:
+
+```bash
+docker compose exec app composer install
+```
+
+### 4. Configurar o arquivo `.env`
+
+O arquivo `src/.env` deve conter as credenciais abaixo:
+
+```env
+APP_NAME="LG Dashboard"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=lg_dashboard
+DB_USERNAME=lg_user
+DB_PASSWORD=root
+```
+
+### 5. Gerar chave da aplicação
+
+```bash
+docker compose exec app php artisan key:generate
+```
+
+### 6. Rodar migrations e seeders
+
+```bash
+docker compose exec app php artisan migrate:fresh --seed
+```
+
+### 7. Subir o servidor Laravel
+
+```bash
+docker compose exec app php artisan serve --host=0.0.0.0 --port=8000
+```
+
+### 8. Acessar a aplicação
+
+```text
+http://localhost:8000
+```
+
+---
+
+## Estrutura resumida do projeto
+
+```text
+lg-dashboard/
+├── docker-compose.yml
+├── Dockerfile
+├── README.md
+├── .gitignore
+└── src/
+    ├── app/
+    │   ├── Http/Controllers/DashboardController.php
+    │   └── ProductionRecord.php
+    ├── database/
+    │   ├── migrations/
+    │   └── seeds/
+    ├── resources/views/dashboard.blade.php
+    ├── routes/web.php
+    └── ...
+```
+
+---
+
+## Observações
+
+- Os dados são simulados e representam o mês de janeiro de 2026.
+- O projeto foi construído com foco em clareza, simplicidade e organização do código.
+- A interface foi pensada para apresentar os dados de forma objetiva, com visual corporativo e leitura rápida.
+
+---
+
+## Autor Genilson de Oliveira Silva - Engenheiro de Software. 12.98303-0650 - ge_engenharia@hotmail.com.
+
+Desenvolvido como desafio técnico para processo seletivo.
