@@ -186,7 +186,9 @@
         </div>
 
         <div class="alert alert-light border mb-4" role="alert">
-            <strong>Período analisado:</strong> 01/01/2026 a 31/01/2026
+            <strong>Período analisado:</strong> {{ $periodStart }} a {{ $periodEnd }}<br>
+            <strong>Total de dias considerados:</strong> {{ $totalDays }}<br>
+            <strong>Total de registros analisados:</strong> {{ $totalRecords }}
         </div>
 
         <div class="mt-3 mb-5 footer-note">

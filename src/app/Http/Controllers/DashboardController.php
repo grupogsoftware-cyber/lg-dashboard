@@ -49,6 +49,23 @@ class DashboardController extends Controller
             ? round((($summaryProduced - $summaryDefects) / $summaryProduced) * 100, 2)
             : 0;
 
+        $periodStart = '01/01/2026';
+        $periodEnd = '31/01/2026';
+
+        $totalDays = ProductionRecord::query()
+            ->whereYear('production_date', 2026)
+            ->whereMonth('production_date', 1)
+            ->distinct('production_date')
+            ->count('production_date');
+
+        $totalRecords = ProductionRecord::query()
+            ->whereYear('production_date', 2026)
+            ->whereMonth('production_date', 1)
+            ->when(!empty($selectedLine), function ($query) use ($selectedLine) {
+                $query->where('product_line', $selectedLine);
+            })
+            ->count();
+
         return view('dashboard', [
             'records' => $records,
             'allLines' => $allLines,
@@ -56,6 +73,10 @@ class DashboardController extends Controller
             'summaryProduced' => $summaryProduced,
             'summaryDefects' => $summaryDefects,
             'summaryEfficiency' => $summaryEfficiency,
+            'periodStart' => $periodStart,
+            'periodEnd' => $periodEnd,
+            'totalDays' => $totalDays,
+            'totalRecords' => $totalRecords,
         ]);
     }
 }
