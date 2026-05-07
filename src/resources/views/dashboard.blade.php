@@ -207,35 +207,39 @@
             @endforeach
         ];
 
-        const ctx = document.getElementById('efficiencyChart').getContext('2d');
+        const chartElement = document.getElementById('efficiencyChart');
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Eficiência (%)',
-                    data: efficiencies,
-                    backgroundColor: '#a50034'
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            max: 100
-                        }
+        if (chartElement && labels.length > 0) {
+            const ctx = chartElement.getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Eficiência (%)',
+                        data: efficiencies,
+                        backgroundColor: '#a50034'
                     }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }]
+                    }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
