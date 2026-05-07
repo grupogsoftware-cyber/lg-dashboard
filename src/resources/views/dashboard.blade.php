@@ -78,6 +78,62 @@
             color: #777;
             font-size: 0.9rem;
         }
+        .filter-card {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .filter-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .filter-subtitle {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .filter-select {
+            height: 46px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+
+        .filter-select:focus {
+            border-color: #a50034;
+            box-shadow: 0 0 0 0.2rem rgba(165, 0, 52, 0.15);
+        }
+
+        .btn-lg-red {
+            background-color: #a50034;
+            color: #fff;
+            border: none;
+            height: 46px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .btn-lg-red:hover {
+            background-color: #87002a;
+            color: #fff;
+        }
+
+        .btn-outline-secondary-custom {
+            height: 46px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -93,12 +149,17 @@
             <p class="text-muted mb-0">Monitoramento consolidado da eficiência das linhas Geladeira, Máquina de Lavar, TV e Ar-Condicionado no período de janeiro de 2026.</p>
         </div>
 
-        <div class="card card-default p-3 mb-4">
+        <div class="card filter-card p-4 mb-4">
+            <div class="filter-title">Filtro de visualização</div>
+            <div class="filter-subtitle">
+                Selecione uma linha de produção específica ou mantenha a visão consolidada de toda a Planta A.
+            </div>
+
             <form method="GET" action="{{ route('dashboard') }}">
                 <div class="row align-items-end">
-                    <div class="col-md-4">
-                        <label for="product_line" class="filter-label">Filtrar por linha de produção</label>
-                        <select name="product_line" id="product_line" class="form-control">
+                    <div class="col-md-6">
+                        <label for="product_line" class="filter-label">Linha de produção</label>
+                        <select name="product_line" id="product_line" class="form-control filter-select">
                             <option value="">Todas as linhas</option>
                             @foreach($allLines as $line)
                                 <option value="{{ $line }}" {{ $selectedLine == $line ? 'selected' : '' }}>
@@ -107,11 +168,15 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mt-3 mt-md-0">
-                        <button type="submit" class="btn btn-lg-red btn-block">Filtrar</button>
+
+                    <div class="col-md-3 mt-3 mt-md-0">
+                        <button type="submit" class="btn btn-lg-red btn-block">Aplicar filtro</button>
                     </div>
-                    <div class="col-md-2 mt-3 mt-md-0">
-                        <a href="{{ route('dashboard') }}" class="btn btn-secondary btn-block">Limpar</a>
+
+                    <div class="col-md-3 mt-3 mt-md-0">
+                        <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary btn-outline-secondary-custom btn-block">
+                            Limpar filtro
+                        </a>
                     </div>
                 </div>
             </form>
