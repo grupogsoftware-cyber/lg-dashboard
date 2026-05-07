@@ -87,6 +87,19 @@ VALUES
 
 ---
 
+## Dump do banco de dados
+
+Além das migrations e seeders, o projeto também disponibiliza um arquivo `.sql` com a estrutura e os dados simulados do banco para facilitar validação e importação manual, se necessário.
+
+Arquivo:
+
+```text
+lg_dashboard.sql
+
+O arquivo .sql foi incluído como recurso complementar para apoiar a avaliação técnica.
+
+---
+
 ## Como executar o projeto localmente
 
 ### 1. Clonar o repositório
