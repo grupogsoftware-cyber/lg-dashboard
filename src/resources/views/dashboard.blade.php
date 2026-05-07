@@ -89,8 +89,8 @@
 
     <div class="container">
         <div class="mb-4">
-            <h2 class="page-title">Dashboard de Eficiência de Produção</h2>
-            <p class="text-muted mb-0">Visão consolidada da produção da Planta A referente a janeiro de 2026.</p>
+            <h2 class="page-title">Dashboard de Eficiência de Produção — Planta A</h2>
+            <p class="text-muted mb-0">Monitoramento consolidado da eficiência das linhas Geladeira, Máquina de Lavar, TV e Ar-Condicionado no período de janeiro de 2026.</p>
         </div>
 
         <div class="card card-default p-3 mb-4">
@@ -155,7 +155,7 @@
 
         <div class="card card-default">
             <div class="card-body">
-                <h5 class="mb-3">Resumo por Linha de Produto</h5>
+                <h5 class="mb-3">Indicadores Consolidados por Linha de Produto</h5>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover mb-0">
                         <thead>
@@ -185,8 +185,12 @@
             </div>
         </div>
 
+        <div class="alert alert-light border mb-4" role="alert">
+            <strong>Período analisado:</strong> 01/01/2026 a 31/01/2026
+        </div>
+
         <div class="mt-3 mb-5 footer-note">
-            Eficiência calculada com base na fórmula: ((produzido - defeitos) / produzido) * 100
+            Eficiência calculada considerando a proporção de itens produzidos sem defeito no período analisado.
         </div>
     </div>
 
