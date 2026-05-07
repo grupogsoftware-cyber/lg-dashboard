@@ -162,6 +162,52 @@
             border-radius: 8px;
             font-weight: 600;
         }
+        .table-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .table-modern {
+            margin-bottom: 0;
+        }
+
+        .table-modern thead th {
+            background-color: #a50034;
+            color: #fff;
+            border: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 14px 16px;
+            vertical-align: middle;
+        }
+
+        .table-modern tbody td {
+            padding: 14px 16px;
+            vertical-align: middle;
+            border-top: 1px solid #ececec;
+            color: #333;
+        }
+
+        .table-modern tbody tr:hover {
+            background-color: #faf7f8;
+        }
+
+        .badge-efficiency {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: rgba(165, 0, 52, 0.08);
+            color: #a50034;
+        }
+
+        .line-name {
+            font-weight: 600;
+            color: #222;
+        }
     </style>
 </head>
 <body>
@@ -251,9 +297,9 @@
 
         <div class="card card-default">
             <div class="card-body">
-                <h5 class="mb-3">Indicadores Consolidados por Linha de Produto</h5>
+                <div class="table-card-title">Indicadores Consolidados por Linha de Produto</div>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover mb-0">
+                    <table class="table table-modern table-hover">
                         <thead>
                             <tr>
                                 <th>Linha do Produto</th>
@@ -265,10 +311,14 @@
                         <tbody>
                             @forelse($records as $record)
                                 <tr>
-                                    <td>{{ $record->product_line }}</td>
+                                    <td class="line-name">{{ $record->product_line }}</td>
                                     <td>{{ number_format($record->total_produced, 0, ',', '.') }}</td>
                                     <td>{{ number_format($record->total_defects, 0, ',', '.') }}</td>
-                                    <td>{{ number_format($record->efficiency, 2, ',', '.') }}%</td>
+                                    <td>
+                                        <span class="badge-efficiency">
+                                            {{ number_format($record->efficiency, 2, ',', '.') }}%
+                                        </span>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
