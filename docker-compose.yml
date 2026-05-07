@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lg_dashboard_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - lg_network
+
+  db:
+    image: mysql:8.0
+    container_name: lg_dashboard_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: lg_dashboard
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: lg_user
+    ports:
+      - "3308:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - lg_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: lg_dashboard_phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8082:80"
+    networks:
+      - lg_network
+
+volumes:
+  dbdata:
+
+networks:
+  lg_network:
+    driver: bridge
