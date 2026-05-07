@@ -97,6 +97,7 @@ Arquivo:
 lg_dashboard.sql
 
 O arquivo .sql foi incluído como recurso complementar para apoiar a avaliação técnica.
+```
 
 ---
 
