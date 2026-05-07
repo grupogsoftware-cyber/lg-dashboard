@@ -208,6 +208,18 @@
             font-weight: 600;
             color: #222;
         }
+        .chart-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .chart-card-subtitle {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -290,8 +302,13 @@
 
         <div class="card card-default mb-4">
             <div class="card-body">
-                <h5 class="mb-3">Eficiência por Linha</h5>
-                <canvas id="efficiencyChart" height="100"></canvas>
+                <div class="chart-card-title">Eficiência por Linha</div>
+                <div class="chart-card-subtitle">
+                    Comparativo consolidado da eficiência percentual entre as linhas de produção da Planta A.
+                </div>
+                <div style="position: relative; height: 320px;">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
             </div>
         </div>
 
@@ -343,51 +360,62 @@
     </div>
 
     <script>
-        const labels = [
-            @foreach($records as $record)
-                "{{ $record->product_line }}",
-            @endforeach
-        ];
+    const labels = [
+        @foreach($records as $record)
+            "{{ $record->product_line }}",
+        @endforeach
+    ];
 
-        const efficiencies = [
-            @foreach($records as $record)
-                {{ $record->efficiency }},
-            @endforeach
-        ];
+    const efficiencies = [
+        @foreach($records as $record)
+            {{ $record->efficiency }},
+        @endforeach
+    ];
 
-        const chartElement = document.getElementById('efficiencyChart');
+    const chartElement = document.getElementById('efficiencyChart');
 
-        if (chartElement && labels.length > 0) {
-            const ctx = chartElement.getContext('2d');
+    if (chartElement && labels.length > 0) {
+        const ctx = chartElement.getContext('2d');
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Eficiência (%)',
-                        data: efficiencies,
-                        backgroundColor: '#a50034'
-                    }]
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Eficiência (%)',
+                    data: efficiencies,
+                    backgroundColor: 'rgba(165, 0, 52, 0.85)',
+                    borderColor: '#a50034',
+                    borderWidth: 1,
+                    borderRadius: 8,
+                    barThickness: 42
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: '#eeeeee'
                         }
                     },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                max: 100
-                            }
-                        }]
+                    x: {
+                        grid: {
+                            display: false
+                        }
                     }
                 }
-            });
-        }
-    </script>
+            }
+        });
+    }
+</script>
 </body>
 </html>
